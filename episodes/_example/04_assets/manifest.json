@@ -1,0 +1,30 @@
+{
+  "schema": "assets/v1",
+  "episode_id": "2026-11-20-example-bridge",
+  "items": [
+    {
+      "id": "img001",
+      "file": "04_assets/raw/img001.jpg",
+      "sentences": ["s0002"],
+      "description": "The Harbor Bridge seen from the east bank, orange closure barriers across both lanes, daytime.",
+      "people": [],
+      "source": { "page_url": "https://example.org/dot-closure-photos", "publisher": "State DOT (example)", "date": "2026-03-03" },
+      "license": { "type": "government", "attribution": "Photo: State DOT" },
+      "subject": { "box": [0.18, 0.30, 0.64, 0.45], "faces": 0 },
+      "treatment_hint": "image_feature",
+      "status": "approved"
+    },
+    {
+      "id": "img002",
+      "file": "04_assets/raw/img002.jpg",
+      "sentences": ["s0005"],
+      "description": "Cover page of the 2019 state bridge audit PDF; the weld finding is on the lower third.",
+      "people": [],
+      "source": { "page_url": "https://example.org/2019-audit.pdf", "publisher": "State Auditor (example)", "date": "2019-06-12" },
+      "license": { "type": "government", "attribution": "State Auditor, 2019" },
+      "subject": { "box": [0.10, 0.62, 0.80, 0.18], "faces": 0, "text_in_image": true },
+      "treatment_hint": "doc_zoom",
+      "status": "approved"
+    }
+  ]
+}

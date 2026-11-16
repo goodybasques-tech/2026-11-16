@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "timeline/v1",
+  "title": "03_timeline.json — 时间轴（tools/timeline.py 自动生成，不手改）",
+  "type": "object",
+  "required": ["schema", "episode_id", "duration", "segments", "sentences", "words", "emphasis", "pauses", "cut_candidates"],
+  "properties": {
+    "schema": { "const": "timeline/v1" },
+    "episode_id": { "type": "string" },
+    "duration": { "description": "整条人声轨总长（秒）", "type": "number" },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["id", "chapter", "audio", "offset", "duration"],
+        "properties": {
+          "id": { "type": "string" }, "chapter": { "type": "string" }, "audio": { "type": "string" },
+          "offset": { "description": "这段音频在整轨里的起点", "type": "number" },
+          "duration": { "type": "number" }, "gap_after": { "type": "number" }
+        }
+      }
+    },
+    "chapters": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id", "start", "end"], "properties": { "id": { "type": "string" }, "start": { "type": "number" }, "end": { "type": "number" } } }
+    },
+    "sentences": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["id", "segment", "start", "end"],
+        "properties": { "id": { "type": "string" }, "segment": { "type": "string" }, "start": { "type": "number" }, "end": { "type": "number" } }
+      }
+    },
+    "words": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["sentence", "i", "text", "start", "end"],
+        "properties": {
+          "sentence": { "type": "string" }, "i": { "description": "句内第几个词（从 1 起）", "type": "integer" },
+          "text": { "type": "string" }, "start": { "type": "number" }, "end": { "type": "number" }
+        }
+      }
+    },
+    "emphasis": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["ref", "text", "type", "start", "end"],
+        "properties": { "ref": { "description": "s0012.e1", "type": "string" }, "text": { "type": "string" }, "type": { "type": "string" }, "start": { "type": "number" }, "end": { "type": "number" } }
+      }
+    },
+    "pauses": {
+      "description": "人声里的停顿（句内、句间、段间），≥ channel/voice.json 的 pause_min",
+      "type": "array",
+      "items": { "type": "object", "required": ["start", "end", "dur", "kind"], "properties": { "start": { "type": "number" }, "end": { "type": "number" }, "dur": { "type": "number" }, "kind": { "enum": ["word", "sentence", "segment"] } } }
+    },
+    "cut_candidates": {
+      "description": "推荐切点（停顿中点），strength 越大越适合切镜",
+      "type": "array",
+      "items": { "type": "object", "required": ["t", "strength", "after"], "properties": { "t": { "type": "number" }, "strength": { "type": "integer", "minimum": 1, "maximum": 4 }, "after": { "type": "string" } } }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+episodes/*/02_audio/*.wav
+episodes/*/02_audio/*.mp3
+episodes/*/08_out/
+.env

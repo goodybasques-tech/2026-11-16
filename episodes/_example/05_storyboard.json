@@ -1,0 +1,59 @@
+{
+  "schema": "storyboard/v1",
+  "episode_id": "2026-11-20-example-bridge",
+  "notes": "主视觉：一座被剪成两半的纸桥。c01 冷色紧张，c02 转牛皮纸档案色。",
+  "beats": [
+    {
+      "id": "b001", "start": "START", "template": "title_card",
+      "params": { "title": "@s0001.o2", "kicker": "ui:BREAKING" },
+      "hits": [ { "at": "s0001.e1", "action": "日期纸条拍下" } ],
+      "why": "开场日期定锚"
+    },
+    {
+      "id": "b002", "start": "s0001.e2", "template": "big_number",
+      "params": { "value": "@s0001.o1", "label": "ui:residents" },
+      "hits": [ { "at": "s0001.e2", "action": "数字停在 40,000" }, { "at": "s0001:end-0.4", "action": "城市剪纸从中间撕开" } ],
+      "transition_in": { "type": "paper_slide", "dur": 0.3 },
+      "why": "四万人的城一分为二"
+    },
+    {
+      "id": "b003", "start": "s0002", "template": "image_feature",
+      "params": { "image": "#img001", "frame": "torn_paper", "focus": "subject", "caption": "@s0002.o1" },
+      "hits": [ { "at": "s0002.e1", "action": "圈注焊缝位置" } ],
+      "transition_in": { "type": "cut" },
+      "why": "桥本身 + 裂缝"
+    },
+    {
+      "id": "b004", "start": "s0003", "template": "big_number",
+      "params": { "value": "@s0003.o1", "label": "@s0003.o2" },
+      "hits": [ { "at": "s0003.e1", "action": "数字落定，柱子缩掉三分之一" } ],
+      "transition_in": { "type": "paper_slide", "dur": 0.3 },
+      "why": "客流掉三分之一"
+    },
+    {
+      "id": "b005", "start": "s0004", "template": "quote_card",
+      "params": { "quote": "@s0004.o1", "speaker": "@s0004.o2" },
+      "hits": [ { "at": "s0004.e1", "action": "引语逐词浮现" } ],
+      "why": "当地人原话"
+    },
+    {
+      "id": "b006", "start": "s0004:end+0.25", "template": "chapter_card",
+      "params": { "title": "ui:Who pays", "index": "ui:02" },
+      "transition_in": { "type": "chapter_wipe", "dur": 0.6 },
+      "why": "进入第二章"
+    },
+    {
+      "id": "b007", "start": "s0005.w3", "template": "doc_zoom",
+      "params": { "image": "#img002", "regions": [ { "box": "subject", "label": "@s0005.o1" } ] },
+      "hits": [ { "at": "s0005.e1", "action": "放大到 2019 结论段" } ],
+      "transition_in": { "type": "match_zoom", "dur": 0.4 },
+      "why": "早在 2019 就报过"
+    },
+    {
+      "id": "b008", "start": "s0006", "template": "timeline",
+      "params": { "events": [ { "label": "@s0006.o1" }, { "label": "@s0006.o2" } ], "highlight": "both" },
+      "hits": [ { "at": "s0006.e1", "action": "两年的修缮预算依次被划掉" } ],
+      "why": "连砍两年预算"
+    }
+  ]
+}

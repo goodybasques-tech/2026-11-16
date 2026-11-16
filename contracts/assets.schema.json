@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assets/v1",
+  "title": "04_assets/manifest.json — 图片清单（ChatGPT 找图填写，预处理脚本补全尺寸，人抽查）",
+  "type": "object",
+  "required": ["schema", "episode_id", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "assets/v1" },
+    "episode_id": { "type": "string" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "file", "sentences", "source", "license", "subject", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^img[0-9]{3}$" },
+          "file": { "description": "相对于本期目录，例如 04_assets/raw/img001.jpg", "type": "string" },
+          "sentences": { "description": "这张图服务哪几句", "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^s[0-9]{4}$" } },
+          "description": { "description": "图里是什么（谁、在哪、什么时候）——校验环节靠它判断有没有配错人", "type": "string" },
+          "people": { "description": "图中可辨认的人物姓名；没有就空数组", "type": "array", "items": { "type": "string" } },
+          "source": {
+            "type": "object", "required": ["page_url"], "additionalProperties": false,
+            "properties": {
+              "page_url": { "description": "图片所在网页", "type": "string" },
+              "image_url": { "type": "string" },
+              "publisher": { "type": "string" },
+              "author": { "type": "string" },
+              "date": { "description": "拍摄/发布日期", "type": "string" },
+              "accessed": { "type": "string" }
+            }
+          },
+          "license": {
+            "type": "object", "required": ["type"], "additionalProperties": false,
+            "properties": {
+              "type": { "enum": ["public-domain", "government", "cc0", "cc-by", "cc-by-sa", "press-kit", "licensed", "own", "needs-review", "unknown"] },
+              "attribution": { "description": "画面角落要显示的署名", "type": "string" },
+              "note": { "type": "string" }
+            }
+          },
+          "subject": {
+            "description": "主体位置：裁切、圈注、推镜都对准它。box = [x, y, w, h]，0–1 归一化",
+            "type": "object", "required": ["box"], "additionalProperties": false,
+            "properties": {
+              "box": { "type": "array", "items": { "type": "number", "minimum": 0, "maximum": 1 }, "minItems": 4, "maxItems": 4 },
+              "faces": { "type": "integer", "minimum": 0 },
+              "text_in_image": { "description": "图里自带大段文字（截图/文件）时为 true", "type": "boolean" }
+            }
+          },
+          "size": { "description": "预处理脚本填写", "type": "object", "properties": { "w": { "type": "integer" }, "h": { "type": "integer" } } },
+          "treatment_hint": { "description": "建议的包装方式（模板名），分镜可以不采纳", "type": "string" },
+          "status": { "enum": ["candidate", "approved", "rejected"] }
+        }
+      }
+    }
+  }
+}

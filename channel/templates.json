@@ -1,0 +1,23 @@
+{
+  "_note": "模板目录（草案）。第 2 步建频道套件时逐个实现并补全参数表；validate.py 用 required 检查分镜。",
+  "templates": {
+    "title_card":     { "use": "本期标题/开场大字", "required": ["title"], "optional": ["kicker", "image"] },
+    "chapter_card":   { "use": "章节切换", "required": ["title"], "optional": ["index"] },
+    "image_feature":  { "use": "单张图片包装展示（相框/剪报/纸片，慢推+视差）", "required": ["image"], "optional": ["frame", "caption", "focus", "callout"] },
+    "image_wall":     { "use": "多图拼贴墙，逐张落下", "required": ["images"], "optional": ["captions", "highlight"] },
+    "doc_zoom":       { "use": "文件/网页/推文截图：局部圈注放大", "required": ["image", "regions"], "optional": ["caption"] },
+    "quote_card":     { "use": "人物原话", "required": ["quote", "speaker"], "optional": ["image", "role"] },
+    "big_number":     { "use": "关键数字跳动", "required": ["value"], "optional": ["label", "compare", "unit"] },
+    "chart_bar":      { "use": "柱状对比", "required": ["series"], "optional": ["title", "highlight", "unit"] },
+    "chart_line":     { "use": "趋势", "required": ["series"], "optional": ["title", "annotations", "unit"] },
+    "map_pin":        { "use": "地点定位/路线/范围", "required": ["places"], "optional": ["route", "zoom_to", "label"] },
+    "timeline":       { "use": "事件时间线", "required": ["events"], "optional": ["highlight"] },
+    "versus":         { "use": "双方对比（人/国/方案）", "required": ["left", "right"], "optional": ["points"] },
+    "device_mockup":  { "use": "手机/屏幕样机里展示截图", "required": ["image", "device"], "optional": ["scroll"] },
+    "explainer":      { "use": "无图句子：频道符号/角色动画解释概念", "required": ["idea"], "optional": ["props", "text"] },
+    "lower_third":    { "use": "叠加层：人名条/出处条，可叠在其它模板上", "required": ["text"], "optional": ["sub"] },
+    "end_card":       { "use": "片尾/订阅", "required": [], "optional": ["next_episode"] },
+    "custom":         { "use": "本期定制重点镜头，代码在 06_scenes/<beat id>.js", "required": ["brief"], "optional": [] }
+  },
+  "transitions": ["cut", "paper_slide", "page_turn", "shape_reveal", "whip", "match_zoom", "chapter_wipe"]
+}

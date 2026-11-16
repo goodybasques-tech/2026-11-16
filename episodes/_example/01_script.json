@@ -1,0 +1,214 @@
+{
+  "schema": "script/v1",
+  "episode_id": "2026-11-20-example-bridge",
+  "title": "Why Riverton Closed Its Only Bridge",
+  "language": "en",
+  "chapters": [
+    {
+      "id": "c01",
+      "title": "The closure",
+      "mood": "tense"
+    },
+    {
+      "id": "c02",
+      "title": "Who pays",
+      "mood": "analytical"
+    }
+  ],
+  "segments": [
+    {
+      "id": "p001",
+      "chapter": "c01",
+      "sentences": [
+        {
+          "id": "s0001",
+          "kind": "hook",
+          "text": "On March 3rd, a city of 40,000 people woke up cut in half.",
+          "emphasis": [
+            {
+              "id": "e1",
+              "text": "March 3rd",
+              "type": "date"
+            },
+            {
+              "id": "e2",
+              "text": "40,000",
+              "type": "number"
+            }
+          ],
+          "onscreen": [
+            {
+              "id": "o1",
+              "text": "40,000",
+              "type": "number"
+            },
+            {
+              "id": "o2",
+              "text": "March 3",
+              "type": "date"
+            }
+          ],
+          "sources": [
+            "src01"
+          ]
+        },
+        {
+          "id": "s0002",
+          "text": "Inspectors had found cracked welds on the Harbor Bridge, and the state shut it overnight.",
+          "emphasis": [
+            {
+              "id": "e1",
+              "text": "cracked welds",
+              "type": "term"
+            }
+          ],
+          "onscreen": [
+            {
+              "id": "o1",
+              "text": "Harbor Bridge",
+              "type": "place"
+            }
+          ],
+          "needs_image": true,
+          "image_brief": "The Harbor Bridge itself, ideally with closure barriers. No stock photos of other bridges.",
+          "sources": [
+            "src01"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p002",
+      "chapter": "c01",
+      "sentences": [
+        {
+          "id": "s0003",
+          "text": "Shop owners on the east bank say foot traffic dropped by a third in the first week.",
+          "emphasis": [
+            {
+              "id": "e1",
+              "text": "a third",
+              "type": "number"
+            }
+          ],
+          "onscreen": [
+            {
+              "id": "o1",
+              "text": "-33%",
+              "type": "number"
+            },
+            {
+              "id": "o2",
+              "text": "foot traffic, week 1",
+              "type": "label"
+            }
+          ],
+          "sources": [
+            "src02"
+          ]
+        },
+        {
+          "id": "s0004",
+          "kind": "quote",
+          "text": "One baker told reporters, \"We are an island now.\"",
+          "emphasis": [
+            {
+              "id": "e1",
+              "text": "We are an island now.",
+              "type": "quote"
+            }
+          ],
+          "onscreen": [
+            {
+              "id": "o1",
+              "text": "“We are an island now.”",
+              "type": "quote",
+              "attribution": "East-bank baker, via Riverton Ledger"
+            },
+            {
+              "id": "o2",
+              "text": "East-bank baker",
+              "type": "name",
+              "attribution": "via Riverton Ledger"
+            }
+          ],
+          "sources": [
+            "src02"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p003",
+      "chapter": "c02",
+      "sentences": [
+        {
+          "id": "s0005",
+          "text": "The welds were first flagged in a 2019 audit.",
+          "emphasis": [
+            {
+              "id": "e1",
+              "text": "2019",
+              "type": "date"
+            }
+          ],
+          "onscreen": [
+            {
+              "id": "o1",
+              "text": "2019 audit",
+              "type": "label"
+            }
+          ],
+          "needs_image": true,
+          "image_brief": "Cover or key page of the 2019 state bridge audit (screenshot of the official PDF).",
+          "sources": [
+            "src03"
+          ]
+        },
+        {
+          "id": "s0006",
+          "text": "Repair money was then cut from two state budgets in a row.",
+          "emphasis": [
+            {
+              "id": "e1",
+              "text": "two state budgets",
+              "type": "number"
+            }
+          ],
+          "onscreen": [
+            {
+              "id": "o1",
+              "text": "FY2021",
+              "type": "label"
+            },
+            {
+              "id": "o2",
+              "text": "FY2022",
+              "type": "label"
+            }
+          ],
+          "sources": [
+            "src03"
+          ]
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "src01",
+      "url": "https://example.org/state-dot-notice",
+      "publisher": "State DOT (example)"
+    },
+    {
+      "id": "src02",
+      "url": "https://example.org/ledger-bridge",
+      "publisher": "Riverton Ledger (example)"
+    },
+    {
+      "id": "src03",
+      "url": "https://example.org/2019-audit.pdf",
+      "publisher": "State Auditor (example)"
+    }
+  ]
+}

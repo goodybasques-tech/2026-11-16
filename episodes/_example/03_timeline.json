@@ -1,0 +1,751 @@
+{
+  "schema": "timeline/v1",
+  "episode_id": "2026-11-20-example-bridge",
+  "duration": 27.616,
+  "segments": [
+    {
+      "id": "p001",
+      "chapter": "c01",
+      "audio": "02_audio/p001.wav",
+      "offset": 0.0,
+      "duration": 10.257,
+      "gap_after": 0.35
+    },
+    {
+      "id": "p002",
+      "chapter": "c01",
+      "audio": "02_audio/p002.wav",
+      "offset": 10.607,
+      "duration": 8.985,
+      "gap_after": 0.9
+    },
+    {
+      "id": "p003",
+      "chapter": "c02",
+      "audio": "02_audio/p003.wav",
+      "offset": 20.492,
+      "duration": 7.124,
+      "gap_after": 0.0
+    }
+  ],
+  "chapters": [
+    {
+      "id": "c01",
+      "start": 0.0,
+      "end": 20.492
+    },
+    {
+      "id": "c02",
+      "start": 20.492,
+      "end": 27.616
+    }
+  ],
+  "sentences": [
+    {
+      "id": "s0001",
+      "segment": "p001",
+      "start": 0.12,
+      "end": 3.726
+    },
+    {
+      "id": "s0002",
+      "segment": "p001",
+      "start": 4.221,
+      "end": 9.497
+    },
+    {
+      "id": "s0003",
+      "segment": "p002",
+      "start": 10.727,
+      "end": 15.379
+    },
+    {
+      "id": "s0004",
+      "segment": "p002",
+      "start": 15.874,
+      "end": 18.77
+    },
+    {
+      "id": "s0005",
+      "segment": "p003",
+      "start": 20.612,
+      "end": 23.124
+    },
+    {
+      "id": "s0006",
+      "segment": "p003",
+      "start": 23.619,
+      "end": 26.856
+    }
+  ],
+  "words": [
+    {
+      "sentence": "s0001",
+      "i": 1,
+      "text": "On",
+      "start": 0.12,
+      "end": 0.244
+    },
+    {
+      "sentence": "s0001",
+      "i": 2,
+      "text": "March",
+      "start": 0.279,
+      "end": 0.589
+    },
+    {
+      "sentence": "s0001",
+      "i": 3,
+      "text": "3rd",
+      "start": 0.624,
+      "end": 0.81
+    },
+    {
+      "sentence": "s0001",
+      "i": 4,
+      "text": "a",
+      "start": 1.105,
+      "end": 1.167
+    },
+    {
+      "sentence": "s0001",
+      "i": 5,
+      "text": "city",
+      "start": 1.202,
+      "end": 1.45
+    },
+    {
+      "sentence": "s0001",
+      "i": 6,
+      "text": "of",
+      "start": 1.485,
+      "end": 1.609
+    },
+    {
+      "sentence": "s0001",
+      "i": 7,
+      "text": "40,000",
+      "start": 1.644,
+      "end": 2.214
+    },
+    {
+      "sentence": "s0001",
+      "i": 8,
+      "text": "people",
+      "start": 2.249,
+      "end": 2.621
+    },
+    {
+      "sentence": "s0001",
+      "i": 9,
+      "text": "woke",
+      "start": 2.656,
+      "end": 2.904
+    },
+    {
+      "sentence": "s0001",
+      "i": 10,
+      "text": "up",
+      "start": 2.939,
+      "end": 3.063
+    },
+    {
+      "sentence": "s0001",
+      "i": 11,
+      "text": "cut",
+      "start": 3.098,
+      "end": 3.284
+    },
+    {
+      "sentence": "s0001",
+      "i": 12,
+      "text": "in",
+      "start": 3.319,
+      "end": 3.443
+    },
+    {
+      "sentence": "s0001",
+      "i": 13,
+      "text": "half",
+      "start": 3.478,
+      "end": 3.726
+    },
+    {
+      "sentence": "s0002",
+      "i": 1,
+      "text": "Inspectors",
+      "start": 4.221,
+      "end": 4.841
+    },
+    {
+      "sentence": "s0002",
+      "i": 2,
+      "text": "had",
+      "start": 4.876,
+      "end": 5.062
+    },
+    {
+      "sentence": "s0002",
+      "i": 3,
+      "text": "found",
+      "start": 5.097,
+      "end": 5.407
+    },
+    {
+      "sentence": "s0002",
+      "i": 4,
+      "text": "cracked",
+      "start": 5.442,
+      "end": 5.876
+    },
+    {
+      "sentence": "s0002",
+      "i": 5,
+      "text": "welds",
+      "start": 5.911,
+      "end": 6.221
+    },
+    {
+      "sentence": "s0002",
+      "i": 6,
+      "text": "on",
+      "start": 6.256,
+      "end": 6.38
+    },
+    {
+      "sentence": "s0002",
+      "i": 7,
+      "text": "the",
+      "start": 6.415,
+      "end": 6.601
+    },
+    {
+      "sentence": "s0002",
+      "i": 8,
+      "text": "Harbor",
+      "start": 6.636,
+      "end": 7.008
+    },
+    {
+      "sentence": "s0002",
+      "i": 9,
+      "text": "Bridge",
+      "start": 7.043,
+      "end": 7.415
+    },
+    {
+      "sentence": "s0002",
+      "i": 10,
+      "text": "and",
+      "start": 7.71,
+      "end": 7.896
+    },
+    {
+      "sentence": "s0002",
+      "i": 11,
+      "text": "the",
+      "start": 7.931,
+      "end": 8.117
+    },
+    {
+      "sentence": "s0002",
+      "i": 12,
+      "text": "state",
+      "start": 8.152,
+      "end": 8.462
+    },
+    {
+      "sentence": "s0002",
+      "i": 13,
+      "text": "shut",
+      "start": 8.497,
+      "end": 8.745
+    },
+    {
+      "sentence": "s0002",
+      "i": 14,
+      "text": "it",
+      "start": 8.78,
+      "end": 8.904
+    },
+    {
+      "sentence": "s0002",
+      "i": 15,
+      "text": "overnight",
+      "start": 8.939,
+      "end": 9.497
+    },
+    {
+      "sentence": "s0003",
+      "i": 1,
+      "text": "Shop",
+      "start": 10.727,
+      "end": 10.975
+    },
+    {
+      "sentence": "s0003",
+      "i": 2,
+      "text": "owners",
+      "start": 11.01,
+      "end": 11.382
+    },
+    {
+      "sentence": "s0003",
+      "i": 3,
+      "text": "on",
+      "start": 11.417,
+      "end": 11.541
+    },
+    {
+      "sentence": "s0003",
+      "i": 4,
+      "text": "the",
+      "start": 11.576,
+      "end": 11.762
+    },
+    {
+      "sentence": "s0003",
+      "i": 5,
+      "text": "east",
+      "start": 11.797,
+      "end": 12.045
+    },
+    {
+      "sentence": "s0003",
+      "i": 6,
+      "text": "bank",
+      "start": 12.08,
+      "end": 12.328
+    },
+    {
+      "sentence": "s0003",
+      "i": 7,
+      "text": "say",
+      "start": 12.363,
+      "end": 12.549
+    },
+    {
+      "sentence": "s0003",
+      "i": 8,
+      "text": "foot",
+      "start": 12.584,
+      "end": 12.832
+    },
+    {
+      "sentence": "s0003",
+      "i": 9,
+      "text": "traffic",
+      "start": 12.867,
+      "end": 13.301
+    },
+    {
+      "sentence": "s0003",
+      "i": 10,
+      "text": "dropped",
+      "start": 13.336,
+      "end": 13.77
+    },
+    {
+      "sentence": "s0003",
+      "i": 11,
+      "text": "by",
+      "start": 13.805,
+      "end": 13.929
+    },
+    {
+      "sentence": "s0003",
+      "i": 12,
+      "text": "a",
+      "start": 13.964,
+      "end": 14.026
+    },
+    {
+      "sentence": "s0003",
+      "i": 13,
+      "text": "third",
+      "start": 14.061,
+      "end": 14.371
+    },
+    {
+      "sentence": "s0003",
+      "i": 14,
+      "text": "in",
+      "start": 14.406,
+      "end": 14.53
+    },
+    {
+      "sentence": "s0003",
+      "i": 15,
+      "text": "the",
+      "start": 14.565,
+      "end": 14.751
+    },
+    {
+      "sentence": "s0003",
+      "i": 16,
+      "text": "first",
+      "start": 14.786,
+      "end": 15.096
+    },
+    {
+      "sentence": "s0003",
+      "i": 17,
+      "text": "week",
+      "start": 15.131,
+      "end": 15.379
+    },
+    {
+      "sentence": "s0004",
+      "i": 1,
+      "text": "One",
+      "start": 15.874,
+      "end": 16.06
+    },
+    {
+      "sentence": "s0004",
+      "i": 2,
+      "text": "baker",
+      "start": 16.095,
+      "end": 16.405
+    },
+    {
+      "sentence": "s0004",
+      "i": 3,
+      "text": "told",
+      "start": 16.44,
+      "end": 16.688
+    },
+    {
+      "sentence": "s0004",
+      "i": 4,
+      "text": "reporters",
+      "start": 16.723,
+      "end": 17.281
+    },
+    {
+      "sentence": "s0004",
+      "i": 5,
+      "text": "We",
+      "start": 17.638,
+      "end": 17.762
+    },
+    {
+      "sentence": "s0004",
+      "i": 6,
+      "text": "are",
+      "start": 17.797,
+      "end": 17.983
+    },
+    {
+      "sentence": "s0004",
+      "i": 7,
+      "text": "an",
+      "start": 18.018,
+      "end": 18.142
+    },
+    {
+      "sentence": "s0004",
+      "i": 8,
+      "text": "island",
+      "start": 18.177,
+      "end": 18.549
+    },
+    {
+      "sentence": "s0004",
+      "i": 9,
+      "text": "now",
+      "start": 18.584,
+      "end": 18.77
+    },
+    {
+      "sentence": "s0005",
+      "i": 1,
+      "text": "The",
+      "start": 20.612,
+      "end": 20.798
+    },
+    {
+      "sentence": "s0005",
+      "i": 2,
+      "text": "welds",
+      "start": 20.833,
+      "end": 21.143
+    },
+    {
+      "sentence": "s0005",
+      "i": 3,
+      "text": "were",
+      "start": 21.178,
+      "end": 21.426
+    },
+    {
+      "sentence": "s0005",
+      "i": 4,
+      "text": "first",
+      "start": 21.461,
+      "end": 21.771
+    },
+    {
+      "sentence": "s0005",
+      "i": 5,
+      "text": "flagged",
+      "start": 21.806,
+      "end": 22.24
+    },
+    {
+      "sentence": "s0005",
+      "i": 6,
+      "text": "in",
+      "start": 22.275,
+      "end": 22.399
+    },
+    {
+      "sentence": "s0005",
+      "i": 7,
+      "text": "a",
+      "start": 22.434,
+      "end": 22.496
+    },
+    {
+      "sentence": "s0005",
+      "i": 8,
+      "text": "2019",
+      "start": 22.531,
+      "end": 22.779
+    },
+    {
+      "sentence": "s0005",
+      "i": 9,
+      "text": "audit",
+      "start": 22.814,
+      "end": 23.124
+    },
+    {
+      "sentence": "s0006",
+      "i": 1,
+      "text": "Repair",
+      "start": 23.619,
+      "end": 23.991
+    },
+    {
+      "sentence": "s0006",
+      "i": 2,
+      "text": "money",
+      "start": 24.026,
+      "end": 24.336
+    },
+    {
+      "sentence": "s0006",
+      "i": 3,
+      "text": "was",
+      "start": 24.371,
+      "end": 24.557
+    },
+    {
+      "sentence": "s0006",
+      "i": 4,
+      "text": "then",
+      "start": 24.592,
+      "end": 24.84
+    },
+    {
+      "sentence": "s0006",
+      "i": 5,
+      "text": "cut",
+      "start": 24.875,
+      "end": 25.061
+    },
+    {
+      "sentence": "s0006",
+      "i": 6,
+      "text": "from",
+      "start": 25.096,
+      "end": 25.344
+    },
+    {
+      "sentence": "s0006",
+      "i": 7,
+      "text": "two",
+      "start": 25.379,
+      "end": 25.565
+    },
+    {
+      "sentence": "s0006",
+      "i": 8,
+      "text": "state",
+      "start": 25.6,
+      "end": 25.91
+    },
+    {
+      "sentence": "s0006",
+      "i": 9,
+      "text": "budgets",
+      "start": 25.945,
+      "end": 26.379
+    },
+    {
+      "sentence": "s0006",
+      "i": 10,
+      "text": "in",
+      "start": 26.414,
+      "end": 26.538
+    },
+    {
+      "sentence": "s0006",
+      "i": 11,
+      "text": "a",
+      "start": 26.573,
+      "end": 26.635
+    },
+    {
+      "sentence": "s0006",
+      "i": 12,
+      "text": "row",
+      "start": 26.67,
+      "end": 26.856
+    }
+  ],
+  "emphasis": [
+    {
+      "ref": "s0001.e1",
+      "text": "March 3rd",
+      "type": "date",
+      "start": 0.279,
+      "end": 0.81
+    },
+    {
+      "ref": "s0001.e2",
+      "text": "40,000",
+      "type": "number",
+      "start": 1.644,
+      "end": 2.214
+    },
+    {
+      "ref": "s0002.e1",
+      "text": "cracked welds",
+      "type": "term",
+      "start": 5.442,
+      "end": 6.221
+    },
+    {
+      "ref": "s0003.e1",
+      "text": "a third",
+      "type": "number",
+      "start": 13.964,
+      "end": 14.371
+    },
+    {
+      "ref": "s0004.e1",
+      "text": "We are an island now.",
+      "type": "quote",
+      "start": 17.638,
+      "end": 18.77
+    },
+    {
+      "ref": "s0005.e1",
+      "text": "2019",
+      "type": "date",
+      "start": 22.531,
+      "end": 22.779
+    },
+    {
+      "ref": "s0006.e1",
+      "text": "two state budgets",
+      "type": "number",
+      "start": 25.379,
+      "end": 26.379
+    }
+  ],
+  "pauses": [
+    {
+      "start": 0.81,
+      "end": 1.105,
+      "dur": 0.295,
+      "kind": "word"
+    },
+    {
+      "start": 3.726,
+      "end": 4.221,
+      "dur": 0.495,
+      "kind": "sentence"
+    },
+    {
+      "start": 7.415,
+      "end": 7.71,
+      "dur": 0.295,
+      "kind": "word"
+    },
+    {
+      "start": 15.379,
+      "end": 15.874,
+      "dur": 0.495,
+      "kind": "sentence"
+    },
+    {
+      "start": 17.281,
+      "end": 17.638,
+      "dur": 0.357,
+      "kind": "word"
+    },
+    {
+      "start": 9.497,
+      "end": 10.727,
+      "dur": 1.23,
+      "kind": "segment"
+    },
+    {
+      "start": 23.124,
+      "end": 23.619,
+      "dur": 0.495,
+      "kind": "sentence"
+    },
+    {
+      "start": 18.77,
+      "end": 20.612,
+      "dur": 1.842,
+      "kind": "segment"
+    }
+  ],
+  "cut_candidates": [
+    {
+      "t": 0.958,
+      "strength": 1,
+      "after": "s0001.w3"
+    },
+    {
+      "t": 3.974,
+      "strength": 3,
+      "after": "s0001"
+    },
+    {
+      "t": 7.562,
+      "strength": 1,
+      "after": "s0002.w9"
+    },
+    {
+      "t": 10.112,
+      "strength": 3,
+      "after": "s0002"
+    },
+    {
+      "t": 15.627,
+      "strength": 3,
+      "after": "s0003"
+    },
+    {
+      "t": 17.459,
+      "strength": 2,
+      "after": "s0004.w4"
+    },
+    {
+      "t": 19.691,
+      "strength": 4,
+      "after": "s0004"
+    },
+    {
+      "t": 23.371,
+      "strength": 3,
+      "after": "s0005"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "storyboard/v1",
+  "title": "05_storyboard.json — 分镜（Claude 产出，人审批）",
+  "description": "时间一律写锚点，不写绝对秒。锚点语法见 docs/contracts.md：s0012 / s0012:end / s0012.e1 / s0012.w3 / c02 / c02:end / END，可加偏移 s0012.e1-0.1。",
+  "type": "object",
+  "required": ["schema", "episode_id", "beats"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "storyboard/v1" },
+    "episode_id": { "type": "string" },
+    "notes": { "description": "本期整体构想：主视觉、颜色变体、贯穿道具", "type": "string" },
+    "beats": {
+      "description": "画面片段，按时间顺序首尾相接、覆盖全片。下一个 beat 的 start 就是上一个的 end",
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "start", "template", "params"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^b[0-9]{3}$" },
+          "start": { "$ref": "#/$defs/anchor" },
+          "template": { "description": "channel/templates.json 里的模板名；custom 表示定制镜头，代码放 06_scenes/<beat id>.js", "type": "string" },
+          "params": { "description": "模板参数。上屏文字一律写 \"@s0012.o1\" 引用稿子；素材写 \"#img003\"", "type": "object" },
+          "hits": {
+            "description": "这个片段里卡在人声上的动作",
+            "type": "array",
+            "items": {
+              "type": "object", "required": ["at", "action"], "additionalProperties": false,
+              "properties": { "at": { "$ref": "#/$defs/anchor" }, "action": { "type": "string" } }
+            }
+          },
+          "transition_in": {
+            "type": "object", "required": ["type"],
+            "properties": { "type": { "description": "channel/templates.json 的 transitions 列表里的名字，或 cut", "type": "string" }, "dur": { "type": "number", "minimum": 0, "maximum": 1.5 } }
+          },
+          "why": { "description": "一句话：这个画面在讲哪句话的什么", "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "anchor": {
+      "type": "string",
+      "pattern": "^(START|END|(s[0-9]{4}(:end|\\.e[0-9]+(:end)?|\\.w[0-9]+(:end)?)?)|(c[0-9]{2}(:end)?))([+-][0-9]+(\\.[0-9]+)?)?$"
+    }
+  }
+}
