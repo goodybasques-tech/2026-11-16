@@ -1,0 +1,162 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Instrument Serif"; src: url(/engine3d/vendor/fonts/InstrumentSerif-Regular.ttf); }
+  @font-face { font-family: "Instrument Serif"; font-style: italic; src: url(/engine3d/vendor/fonts/InstrumentSerif-Italic.ttf); }
+  @font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: url(/engine3d/vendor/fonts/IBMPlexMono-Regular.ttf); }
+  @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url(/engine3d/vendor/fonts/IBMPlexMono-Medium.ttf); }
+  @font-face { font-family: "IBM Plex Mono"; font-weight: 600; src: url(/engine3d/vendor/fonts/IBMPlexMono-SemiBold.ttf); }
+  @font-face { font-family: "Inter Tight"; font-weight: 100 900; src: url("/engine3d/vendor/fonts/InterTight[wght].ttf"); }
+  html, body { margin: 0; background: #000; width: 1920px; height: 1080px; overflow: hidden; }
+  #stage { position: absolute; inset: 0; }
+  .ov { position: absolute; color: #f1ebe0; opacity: 0; will-change: opacity, transform; }
+  #mult { left: 120px; top: 92px; font: 400 250px/1 "Instrument Serif"; letter-spacing: -4px; }
+  #multSub { left: 128px; top: 352px; font: 500 30px "IBM Plex Mono"; letter-spacing: 2px; color: rgba(241,235,224,.7); }
+  #fade { position: absolute; inset: 0; background: #000; }
+</style>
+<script type="importmap">{ "imports": { "three": "/engine3d/vendor/three/three.module.js", "three/addons/": "/engine3d/vendor/three/jsm/" } }</script>
+</head><body>
+<div id="stage"></div>
+<div id="mult" class="ov">700×</div>
+<div id="multSub" class="ov">$28,218  ÷  $40</div>
+<div id="fade"></div>
+<script type="module">
+// Opening 0:00–0:18.3 — "one shot, two prices", real 3D camera.
+// VO timing measured from the episode audio (silencedetect):
+//  0.00–2.23 "A single HIV prevention shot" | 2.52–3.42 "Lenacapavir" | 3.68–6.95 "costs twenty-eight thousand dollars in the United States."
+//  7.47–10.30 "In one hundred and twenty low- and middle-income nations," | 10.57–13.58 "that EXACT same shot sells for just forty bucks."
+// 13.99–15.23 "Forty dollars." | 15.65–17.75 "That's a seven-hundred-fold price gap."
+import { THREE, makeStage, makeDesk, makeVial, makeVialField, makeTag, makeString, makeMap, makeDeskText, cameraAt, PAL, seg, smooth, easeOut, lerp, clamp } from '/engine3d/darkroom3d.js';
+
+await document.fonts.load('600 92px "Inter Tight"'); await document.fonts.load('500 40px "IBM Plex Mono"');
+await document.fonts.load('600 150px "IBM Plex Mono"'); await document.fonts.load('400 250px "Instrument Serif"');
+
+const S = makeStage(document.getElementById('stage'));
+const { scene, camera, composer, bokeh, grade, env } = S;
+
+const ll = (lon, lat) => new THREE.Vector3(lon * .1, 0, -lat * .1);
+const A = ll(-98.0, 39.0);          // US vial (central US)
+const B = ll(78.49, 17.39);         // Hyderabad
+const M = A.clone().add(B).multiplyScalar(.5);
+const add = (v, d) => [v.x + d[0], v.y + d[1], v.z + d[2]];
+
+scene.add(makeDesk());
+
+// ---- map ----
+const data = await (await fetch('/engine3d/vendor/geo/world_lines.json')).json();
+// "120 low- and middle-income nations": illustrative selection from Natural Earth income groups (to be fact-checked)
+const lmic = data.filter(c => c.inc === 4 || c.inc === 5).map(c => c.a3);
+for (const c of data.filter(c => c.inc === 3).sort((a, b) => a.n.localeCompare(b.n))) { if (lmic.length >= 119) break; lmic.push(c.a3); }
+const map = makeMap(data, { lmicSet: new Set(lmic.filter(a => a !== 'IND' && a !== 'USA')) });
+scene.add(map.grat, map.base, map.us, map.india, ...map.lmic);
+
+const usLabel = makeDeskText('UNITED STATES', { color: '#7fb6ff', size: .30 }); usLabel.position.copy(ll(-113, 46.5)); scene.add(usLabel);
+const inLabel = makeDeskText('INDIA', { color: '#ffa25a', size: .34 }); inLabel.position.copy(ll(64.5, 22.5)); scene.add(inLabel);
+const hyLabel = makeDeskText('HYDERABAD  17.39°N  78.49°E', { color: '#ffb87a', size: .13, font: '500 56px "IBM Plex Mono"', spacing: 4 });
+hyLabel.position.copy(ll(70.0, 13.4)); scene.add(hyLabel);
+
+// ---- vials ----
+const vA = makeVial({ capColor: 0x3c4a5e, env }); vA.position.copy(A); vA.rotation.y = 0.15; scene.add(vA);
+const vB = makeVial({ capColor: 0x3c4a5e, env }); vB.position.copy(B); vB.rotation.y = -0.25; scene.add(vB);
+
+const tagA = makeTag({ kicker: 'LIST PRICE · USA', price: '$28,218', priceColor: PAL.accent }, 3);
+tagA.position.copy(A).add(new THREE.Vector3(0.98, 0.003, -0.32)); tagA.rotation.z = 0.18; scene.add(tagA);
+const tagB = makeTag({ kicker: 'MADE IN INDIA', sub: "DR. REDDY'S · HYDERABAD", price: '$40', priceColor: PAL.ink }, 8);
+tagB.position.copy(B).add(new THREE.Vector3(1.04, 0.003, 0.18)); tagB.rotation.z = 0.10; scene.add(tagB);
+function stringFor(v, tag) {
+  const neck = v.userData.neck.clone().add(v.position);
+  const hole = new THREE.Vector3(-0.37, 0, 0).applyAxisAngle(new THREE.Vector3(0, 1, 0), tag.rotation.z).add(tag.position).setY(0.006);
+  const side = new THREE.Vector3(hole.x - neck.x, 0, hole.z - neck.z).normalize().multiplyScalar(0.19);
+  return makeString([neck.clone().add(side), neck.clone().add(side.clone().multiplyScalar(1.6)).setY(neck.y * .55), hole.clone().lerp(neck, .45).setY(0.05), hole]);
+}
+scene.add(stringFor(vA, tagA), stringFor(vB, tagB));
+
+// ---- 700 field around Hyderabad ----
+const N = 700, field = makeVialField(N); scene.add(field);
+const spots = [];
+for (let i = -40; i <= 40; i++) for (let j = -40; j <= 40; j++) {
+  const p = new THREE.Vector3(B.x + i * .36 + (j & 1) * .18, 0, B.z + j * .31);
+  const d = p.distanceTo(B); const nearTag = p.distanceTo(tagB.position) < .62;
+  if (d < .78 || nearTag) continue; spots.push({ p, d });
+}
+spots.sort((a, b) => a.d - b.d); spots.length = N;
+const dmax = spots[N - 1].d;
+{ const col = new THREE.Color(); field.userData.meshes.forEach(m => { for (let i = 0; i < N; i++) { col.setScalar(Math.exp(-spots[i].d / 3.4) * 1.5 + 0.04); m.setColorAt(i, col); } m.instanceColor.needsUpdate = true; }); }
+const tmp = new THREE.Object3D();
+
+// ---- lights ----
+scene.add(new THREE.HemisphereLight(0x223040, 0x0a0806, 0.25));
+function spot(pos, target, intensity, angle) {
+  const s = new THREE.SpotLight(PAL.key, intensity, 0, angle, 0.75, 1.6); s.position.copy(pos); s.target.position.copy(target);
+  s.castShadow = true; s.shadow.mapSize.set(1024, 1024); s.shadow.bias = -0.0004; s.shadow.radius = 4; scene.add(s, s.target); return s;
+}
+const keyA = spot(A.clone().add(new THREE.Vector3(-1.6, 5.2, 2.2)), A.clone().add(new THREE.Vector3(0.3, 0, 0.2)), 60, 0.34);
+const keyB = spot(B.clone().add(new THREE.Vector3(-1.4, 5.2, 2.4)), B.clone().add(new THREE.Vector3(0.3, 0, 0.2)), 60, 0.34);
+const rimA = new THREE.PointLight(0x5aa0ff, 0, 5, 1.5); rimA.position.copy(A).add(new THREE.Vector3(0.7, 0.22, -1.3)); scene.add(rimA);
+const rimB = new THREE.PointLight(0xff8a30, 0, 5, 1.5); rimB.position.copy(B).add(new THREE.Vector3(0.7, 0.22, -1.3)); scene.add(rimB);
+function back(v) { const s = new THREE.SpotLight(0xdfe8ff, 5, 0, 0.3, 0.9, 1.6); s.position.copy(v).add(new THREE.Vector3(0.6, 2.4, -3.2)); s.target.position.copy(v).add(new THREE.Vector3(0, .5, 0)); scene.add(s, s.target); return s; }
+const backA = back(A), backB = back(B);
+const wash = new THREE.PointLight(0xff9a50, 0, 9, 1.4); wash.position.copy(B).add(new THREE.Vector3(1.5, 3.5, 1)); scene.add(wash);
+
+// ---- camera keys ----
+const K = [
+  { t: 0.0,  pos: add(A, [1.55, 0.50, 1.35]),  tgt: add(A, [0.05, 0.52, 0]), fov: 26, ap: 0.026 },
+  { t: 2.5,  pos: add(A, [0.62, 0.46, 1.86]),  tgt: add(A, [0.02, 0.45, 0]), fov: 26, ap: 0.022 },
+  { t: 3.7,  pos: add(A, [-0.10, 0.52, 1.98]), tgt: add(A, [0.10, 0.42, 0]), fov: 27, ap: 0.017 },
+  { t: 7.2,  pos: add(A, [-1.6, 3.6, 5.6]),    tgt: add(A, [0.55, 0.05, -0.25]), fov: 32, ap: 0.0035, stop: true },
+  { t: 10.3, pos: add(M, [-1.2, 7.8, 8.2]),    tgt: add(M, [2.0, 0, -1.4]), fov: 34, ap: 0.0008 },
+  { t: 13.0, pos: add(B, [1.75, 1.55, 3.35]),  tgt: add(B, [0.42, 0.34, 0.05]), fov: 28, ap: 0.011, stop: true },
+  { t: 15.5, pos: add(B, [2.35, 1.35, 2.85]),  tgt: add(B, [0.45, 0.32, 0.05]), fov: 28, ap: 0.011 },
+  { t: 18.0, pos: add(M, [0.2, 19.5, 6.4]),    tgt: add(M, [0.6, 0, -0.5]), fov: 34, ap: 0.0004, stop: true },
+  { t: 18.4, pos: add(M, [0.2, 19.6, 6.42]),   tgt: add(M, [0.6, 0, -0.5]), fov: 34, ap: 0.0004, stop: true },
+];
+
+const ov = id => document.getElementById(id);
+
+window.renderAt = (t) => {
+  // camera
+  const c = cameraAt(K, t);
+  camera.position.set(...c.pos); camera.fov = c.fov; camera.updateProjectionMatrix(); camera.lookAt(new THREE.Vector3(...c.tgt));
+  const focusDist = camera.position.distanceTo(new THREE.Vector3(...c.tgt));
+  bokeh.uniforms.focus.value = focusDist; bokeh.uniforms.aperture.value = c.ap;
+  bokeh.uniforms.nearClip.value = camera.near; bokeh.uniforms.farClip.value = camera.far;
+  grade.uniforms.uTime.value = Math.floor(t * 30) / 30;
+
+  // map: US lights on "United States" (~5.7s), LMICs ripple west->east during the truck, India on "EXACT same shot"
+  const us = smooth(seg(t, 5.5, 6.6));
+  map.us.material.opacity = lerp(0.18, 1, us); usLabel.material.opacity = us;
+  for (const l of map.lmic) {
+    const t0 = 7.6 + clamp(((l.userData.lon ?? 0) + 100) / 260) * 2.8;
+    l.material.opacity = 0.55 * smooth(seg(t, t0, t0 + .5)) * lerp(1, .55, seg(t, 16, 17.5));
+  }
+  const ind = smooth(seg(t, 10.5, 11.3));
+  map.india.material.opacity = lerp(0.12, 1, ind); inLabel.material.opacity = ind; hyLabel.material.opacity = smooth(seg(t, 11.0, 11.8));
+  map.base.material.opacity = lerp(0.35, 0.5, smooth(seg(t, 3.7, 7)));
+
+  // lights
+  keyA.intensity = 60 * lerp(0.75, 1, smooth(seg(t, 0, 1.2)));
+  rimA.intensity = 1.1 * us + 0.25;
+  keyB.intensity = 60 * smooth(seg(t, 9.6, 11.0));
+  rimB.intensity = 1.1 * ind; backB.intensity = 5 * smooth(seg(t, 9.6, 11.0));
+  wash.intensity = 16 * smooth(seg(t, 15.8, 17.2));
+
+  // 700 field: radial wave outward from Hyderabad on "seven-hundred-fold"
+  const [gm, lm, cm] = field.userData.meshes;
+  for (let i = 0; i < N; i++) {
+    const s0 = 15.75 + (spots[i].d / dmax) * 1.55, k = easeOut(seg(t, s0, s0 + .28));
+    const sc = k * .40 * (1 + .12 * Math.sin(Math.PI * clamp(seg(t, s0, s0 + .28))));
+    tmp.position.copy(spots[i].p); tmp.position.y = (1 - k) * .25; tmp.rotation.set(0, i * 2.39, 0); tmp.scale.setScalar(Math.max(sc, 1e-4)); tmp.updateMatrix();
+    gm.setMatrixAt(i, tmp.matrix); lm.setMatrixAt(i, tmp.matrix); cm.setMatrixAt(i, tmp.matrix);
+  }
+  gm.instanceMatrix.needsUpdate = lm.instanceMatrix.needsUpdate = cm.instanceMatrix.needsUpdate = true;
+
+  // overlays
+  const mk = easeOut(seg(t, 16.55, 17.25));
+  ov('mult').style.opacity = mk; ov('mult').style.transform = `translateY(${(1 - mk) * 14}px)`;
+  ov('multSub').style.opacity = easeOut(seg(t, 16.85, 17.45));
+  ov('fade').style.opacity = 1 - smooth(seg(t, 0, 0.55));
+
+  composer.render();
+};
+window.sceneReady = true;
+</script></body></html>
