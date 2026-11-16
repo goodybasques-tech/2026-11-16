@@ -1,0 +1,71 @@
+A single HIV prevention shot—Lenacapavir—costs twenty-eight thousand dollars in the United States.
+
+In one hundred and twenty low- and middle-income nations, that EXACT same shot sells for just forty bucks.
+
+Forty dollars. That’s a seven-hundred-fold price gap. And no... that discount isn't coming from some global charity. It’s being sold by a commercial Indian drugmaker—Dr. Reddy’s Laboratories.
+
+So, how does the exact same medicine end up with two completely different realities?
+
+What’s the ACTUAL pricing logic here?
+
+And more importantly... why does an American taxpayer—someone whose tax dollars funded the foundational research—get locked out of affordable access, while someone in Kenya with zero skin in the game gets it for pennies on the dollar? Who is looking out for our rights here?
+
+To make sense of this, we have to pull our focus away from Washington, and look at Hyderabad, India.
+
+In global public health, Indian pharma is NOT about cheap, second-rate knockoffs. It is the ONLY link in the entire supply chain that can turn raw breakthrough science into hundreds of millions of doses when the original brand can't meet demand.
+
+So... why India?
+
+Delivering a long-acting injectable to millions of people requires raw active ingredients, sterile fill-finish lines, cold-chain logistics, and airtight regulatory filings—all firing at the exact same time. Dr. Reddy’s has all of that in place. But giving them all the credit misses the real turning point.
+
+It all goes back to India’s Patents Act of 1970.
+
+See, most Western patent systems protect the chemical molecule itself. Meaning, it doesn’t matter HOW you make it—if you end up with that compound, you’re infringing.
+
+India took a radically different path. They said: we ONLY protect the specific manufacturing process. If another lab invents a different chemical pathway to produce the exact same drug, it's fair game.
+
+That was a deliberate policy gamble, designed to make sure their own population didn't starve for life-saving medicine.
+
+Decades later, that bet paid off. After decades of reverse engineering and process optimization, Indian factories can now synthesize these compounds with fewer steps, higher yields, and far less solvent waste.
+
+That’s why Gilead Sciences handed their prized drug, Lenacapavir, directly to Dr. Reddy’s for licensed manufacturing. Dr. Reddy’s estimates their actual production cost sits between twenty-five and forty-six dollars—and that already includes a thirty percent profit margin and twenty-seven percent in taxes. Selling it at forty bucks isn’t charity. In pharmaceuticals, Indian manufacturers operate like high-efficiency industrial giants: low margins, massive volume, lightning-fast turnover.
+
+The answer to "why so cheap" isn't morality. It’s brutal, relentless cost efficiency. America has the world-class R&D, but lacks low-cost manufacturing ecosystems. Europe has the strict regulators, but lacks sheer volume capacity. India occupies the sweet spot right in the middle—and this long-acting injection just put that reality front and center.
+
+Now... what about the US pricing model?
+
+Before we dissect that, let’s be crystal clear: the foundational science behind Lenacapavir was built on research funded by the National Institutes of Health. Gilead developed the final drug, sure—but every single American taxpayer helped foot the bill for the underlying HIV capsid biology.
+
+So why can't we get it at a fair price? Every single taxpayer has a right to ask that question.
+
+And the first culprit here isn't the drugmaker—it’s the Pharmacy Benefit Managers, or PBMs.
+
+Gilead’s official list price filed with PBMs is twenty-eight thousand two hundred and eighteen dollars for two injections a year. But remember: that is the LIST price, not the net price, and definitely not an R&D estimate. It’s merely the opening bid in a negotiation.
+
+PBMs negotiate secret rebates on behalf of insurance companies and corporate employers—rebates that typically cut thirty to fifty percent off that sticker price. But the system creates a perverse incentive: the HIGHER the list price, the larger the rebate check, and the more financial leverage the PBM gets to keep. And how that money gets divided behind closed doors? The patient never gets to see it.
+
+Here’s the real kicker: patient out-of-pocket costs—like coinsurance and copays—are usually calculated off that bloated LIST price, NOT the discounted net price the PBM negotiated. If your insurance requires a twenty percent coinsurance, you’re paying twenty percent of twenty-eight thousand dollars. That’s over five grand straight out of your pocket.
+
+The PBM takes the rebate cut. The insurer pockets the net savings. And the patient gets stuck paying the inflated retail sticker. That is the single most opaque racket in the American healthcare chain.
+
+The Federal Trade Commission’s 2026 lawsuit against Express Scripts blew the lid off this exact setup: employers had ZERO visibility into the kickbacks and fees PBMs were extracting from pharmaceutical firms and pharmacies. Regulators estimate that enforcing basic transparency could save health plans and everyday Americans up to twenty-two billion dollars over ten years. Just think about what that number implies about how much cash has been hidden away.
+
+Every player in the chain is optimizing for their own bottom line. And the final outcome is an absolute paradox: in one hundred and twenty developing nations, an authorized generic is handed out for forty dollars a year with built-in profit. In America, the list price sits at over twenty-eight thousand dollars.
+
+We call ourselves the developed world, but this problem isn't fixing itself.
+
+A long-acting injection is specifically engineered for patients who struggle with the discipline of taking daily oral pills. We love to celebrate the breakthrough—"Gilead cracked the science." But late-2025 data tells the real story: only seven thousand one hundred and thirty-four Americans are actually on Lenacapavir. Meanwhile, over five hundred and thirty thousand are still stuck on older, cheaper oral pills.
+
+On top of that, access is deeply divided along racial and demographic lines. Black and Hispanic communities with high clinical indications show far lower adoption rates than white patients. Compared to white Americans, the equity ratio drops to zero-point-one-seven for Black individuals, and zero-point-one-nine for Hispanic individuals. Remember: one is parity. We are nowhere near it.
+
+So here’s where we stand: American ingenuity helped engineer a game-changing drug that can save millions worldwide—yet fewer than ten thousand Americans can actually use it, and those who do pay an astronomical ransom.
+
+Let’s wrap this up.
+
+India’s forty-dollar price tag is propped up by three structural pillars: a patent law that blocks artificial monopolies, a massive low-cost manufacturing base, and a voluntary license signed by Gilead. Take away any of those three, and the price collapses.
+
+Our twenty-eight-thousand-dollar nightmare is supported by three very different pillars: drug company patent exclusivity, PBM rebate schemes, and an insurance model that pins your copay to an inflated sticker price.
+
+We subsidize the drug companies. We fund the basic science. We bail out the world. And in return, we are forced to swallow the highest drug prices on planet Earth. Don’t give me the "insurance covers it" line—that’s our money, too.
+
+That’s the breakdown for today. Drop your thoughts in the comments below, hit subscribe, and I’ll catch you in the next one.

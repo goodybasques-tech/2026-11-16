@@ -1,0 +1,133 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block}</style>
+<script src="../../../engine/darkroom.js"></script>
+</head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script>
+// Opening 0:00–0:15 — "one shot, two prices".
+// VO (approx.): 0.0 "A single HIV prevention shot—Lenacapavir—costs twenty-eight thousand dollars…"
+//               5.1 "In one hundred and twenty … nations, that EXACT same shot sells for just forty bucks."
+//              12.7 "Forty dollars. That's a seven-hundred-fold price gap."
+const {W, H, C, lerp, ease, easeOut, seg, clamp, canvas} = DR;
+const ctx = document.getElementById('c').getContext('2d');
+
+const A = {x: 0, y: 150, h: 320};      // the US vial
+const B_END = {x: 330, y: 150, h: 320}; // the $40 vial, after sliding in
+
+function camAt(t) {
+  const macro = {x: lerp(-60, -20, seg(t, 0, 2.2)), y: 12, zoom: lerp(5.2, 5.6, seg(t, 0, 2.2)), roll: -0.04};
+  const single = {x: 70, y: 40, zoom: 1.45, roll: -0.01};
+  const pair = {x: 170, y: 40, zoom: 1.08, roll: 0};
+  const wide = {x: 520, y: 30, zoom: 0.66, roll: 0};
+  let a, b, k;
+  if (t < 2.0) return macro;
+  if (t < 4.6) { a = macro; b = single; k = ease(seg(t, 2.0, 4.6)); }
+  else if (t < 5.6) return single;
+  else if (t < 8.2) { a = single; b = pair; k = ease(seg(t, 5.6, 8.2)); }
+  else if (t < 12.9) { const d = seg(t, 8.2, 12.9); return {...pair, zoom: pair.zoom + d * 0.05}; }
+  else { a = {...pair, zoom: pair.zoom + 0.05}; b = wide; k = ease(seg(t, 12.9, 14.4)); }
+  // pull-backs: interpolate zoom in log space so the move feels even
+  return {x: lerp(a.x, b.x, k), y: lerp(a.y, b.y, k), zoom: Math.exp(lerp(Math.log(a.zoom), Math.log(b.zoom), k)), roll: lerp(a.roll, b.roll, k)};
+}
+
+// small-vial sprites for the 700× field, pre-lit at a few light levels
+let sprites = null;
+function makeSprites() {
+  sprites = [1, .62, .38, .2, .1].map(l => {
+    const c = canvas(260, 520), g = c.getContext('2d');
+    DR.drawVial(g, 130, 500, 420, {light: l, sweep: .3});
+    return c;
+  });
+}
+
+function renderAt(t) {
+  if (!sprites) makeSprites();
+  const cam = camAt(t);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = C.black; ctx.fillRect(0, 0, W, H);
+
+  // lamp pool follows the story: first only vial A, then both
+  const pairK = ease(seg(t, 5.4, 8.0));
+  const lampX = lerp(-40, 150, pairK), lampY = lerp(40, 60, pairK), lampR = lerp(620, 820, pairK);
+  DR.drawDesk(ctx, cam, lampX, lampY, lampR, 1, cam.zoom > 2 ? 3.5 : 0);
+
+  // ---- 700× field (behind the two hero vials) ----
+  const fieldK = seg(t, 13.1, 14.6);
+  if (fieldK > 0) drawField(ctx, cam, fieldK);
+
+  DR.applyCamera(ctx, cam);
+  // ---- vial B slides in from the dark ----
+  const slide = easeOut(seg(t, 5.6, 7.6));
+  if (t > 5.4) {
+    const bx = lerp(980, B_END.x, slide);
+    const lightB = DR.clamp(1 - Math.abs(bx - lampX) / 900);
+    const nb = DR.drawVial(ctx, bx, B_END.y, B_END.h, {light: lightB, sweep: .25 + slide * .1});
+    DR.drawTag(ctx, nb, bx + 205, 112, 1.0, -0.20 + (1 - slide) * .1,
+      {kicker: '120 COUNTRIES', price: '$40', size: 46}, {seed: 8, light: lightB * 0.95, ink: C.ink});
+  }
+  // ---- vial A ----
+  const sweep = seg(t, 0, 3.0);
+  const na = DR.drawVial(ctx, A.x, A.y, A.h, {sweep, light: 1});
+  const tagK = easeOut(seg(t, 1.6, 3.4));                  // tag "turns over" into the light on "twenty-eight thousand"
+  ctx.globalAlpha = tagK;
+  DR.drawTag(ctx, na, A.x - 215 + (1 - tagK) * -40, 126, 1.0, 0.16, {kicker: 'LIST PRICE · USA', price: '$28,218', size: 29},
+    {seed: 3, light: lerp(.25, 1, tagK)});
+  ctx.globalAlpha = 1;
+
+  DR.drawBeam(ctx, t, lerp(1, .6, seg(t, 12.9, 14.4)));
+
+  // ---- type: the multiple ----
+  const typeK = easeOut(seg(t, 13.7, 14.5));
+  if (typeK > 0) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.globalAlpha = typeK;
+    ctx.fillStyle = C.textHi; ctx.textAlign = 'left';
+    ctx.font = '200 220px "Inter Display", Inter, sans-serif';
+    ctx.fillText('700×', 110, 330 - (1 - typeK) * 18);
+    ctx.fillStyle = C.textLo;
+    ctx.font = '500 30px "Courier 10 Pitch", "Liberation Mono", monospace';
+    ctx.fillStyle = 'rgba(242,236,226,0.72)';
+    ctx.fillText('$28,218  ÷  $40', 124, 398);
+    ctx.globalAlpha = 1;
+  }
+  DR.finish(ctx, t, {bloom: .32});
+}
+
+// a field of identical $40 vials receding into the dark, filled front-to-back
+let layer = null;
+function drawField(ctx, cam, k) {
+  if (!layer) layer = canvas(W, H);
+  const g = layer.getContext('2d');
+  g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, W, H);
+  DR.applyCamera(g, cam);
+  const cols = 26, rows = 27;            // 702 ≈ 700
+  const vx = 1250, horizon = -760, baseY = 175;
+  const total = cols * rows, n = k * total;
+  for (let r = rows - 1; r >= 0; r--) {
+    const s = 1 / (1 + r * 0.22);
+    const y = horizon + (baseY - horizon) * s;
+    const h = 250 * s;
+    for (let c = 0; c < cols; c++) {
+      const idx = r * cols + c;           // front rows appear first
+      const pop = clamp((n - idx) / 30);
+      if (pop <= 0) continue;
+      const x0 = 650 + c * 118;
+      const x = vx + (x0 - vx) * s;
+      const d = Math.hypot(x0 - 150, (baseY - y) * 2.2);
+      const sp = sprites[Math.min(4, Math.floor(d / 520))];
+      g.globalAlpha = pop;
+      g.drawImage(sp, x - h * 0.31, y - h * 1.19 + (1 - pop) * 10 * s, h * 0.62, h * 1.24);
+    }
+  }
+  g.globalAlpha = 1;
+  // fade the field into darkness with distance from the lamp (soft mask, no edges)
+  g.globalCompositeOperation = 'destination-out';
+  const m = g.createRadialGradient(150, 60, 380, 150, 60, 1900);
+  m.addColorStop(0, 'rgba(0,0,0,0)'); m.addColorStop(0.45, 'rgba(0,0,0,0.55)'); m.addColorStop(1, 'rgba(0,0,0,0.98)');
+  g.fillStyle = m; g.fillRect(-4000, -4000, 8000, 8000);
+  g.globalCompositeOperation = 'source-over';
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(layer, 0, 0); ctx.restore();
+}
+window.renderAt = renderAt;
+</script></body></html>
