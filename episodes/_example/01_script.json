@@ -7,12 +7,14 @@
     {
       "id": "c01",
       "title": "The closure",
-      "mood": "tense"
+      "mood": "tense",
+      "intensity": 3
     },
     {
       "id": "c02",
       "title": "Who pays",
-      "mood": "analytical"
+      "mood": "analytical",
+      "intensity": 4
     }
   ],
   "segments": [
@@ -189,7 +191,8 @@
           ],
           "sources": [
             "src03"
-          ]
+          ],
+          "kind": "reveal"
         }
       ]
     }

@@ -14,7 +14,7 @@
     "timeline":       { "use": "事件时间线", "required": ["events"], "optional": ["highlight"] },
     "versus":         { "use": "双方对比（人/国/方案）", "required": ["left", "right"], "optional": ["points"] },
     "device_mockup":  { "use": "手机/屏幕样机里展示截图", "required": ["image", "device"], "optional": ["scroll"] },
-    "explainer":      { "use": "无图句子：频道符号/角色动画解释概念", "required": ["idea"], "optional": ["props", "text"] },
+    "explainer":      { "use": "无图句子：用物件、符号、文字动画解释概念（频道不设角色）", "required": ["idea"], "optional": ["props", "text"] },
     "lower_third":    { "use": "叠加层：人名条/出处条，可叠在其它模板上", "required": ["text"], "optional": ["sub"] },
     "end_card":       { "use": "片尾/订阅", "required": [], "optional": ["next_episode"] },
     "custom":         { "use": "本期定制重点镜头，代码在 06_scenes/<beat id>.js", "required": ["brief"], "optional": [] }
