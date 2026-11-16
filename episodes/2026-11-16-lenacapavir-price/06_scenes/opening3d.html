@@ -49,6 +49,7 @@ const lmic = data.filter(c => c.inc === 4 || c.inc === 5).map(c => c.a3);
 for (const c of data.filter(c => c.inc === 3).sort((a, b) => a.n.localeCompare(b.n))) { if (lmic.length >= 119) break; lmic.push(c.a3); }
 const map = makeMap(data, { lmicSet: new Set(lmic.filter(a => a !== 'IND' && a !== 'USA')) });
 scene.add(map.grat, map.base, map.us, map.india, ...map.lmic);
+bokeh.excludeFromDepth.push(map.grat, map.base, map.us, map.india, ...map.lmic);
 
 const usLabel = makeDeskText('UNITED STATES', { color: '#7fb6ff', size: .30 }); usLabel.position.copy(ll(-113, 46.5)); scene.add(usLabel);
 const inLabel = makeDeskText('INDIA', { color: '#ffa25a', size: .34 }); inLabel.position.copy(ll(64.5, 22.5)); scene.add(inLabel);
@@ -56,8 +57,8 @@ const hyLabel = makeDeskText('HYDERABAD  17.39°N  78.49°E', { color: '#ffb87a'
 hyLabel.position.copy(ll(70.0, 13.4)); scene.add(hyLabel);
 
 // ---- vials ----
-const vA = makeVial({ capColor: 0x3c4a5e, env }); vA.position.copy(A); vA.rotation.y = 0.15; scene.add(vA);
-const vB = makeVial({ capColor: 0x3c4a5e, env }); vB.position.copy(B); vB.rotation.y = -0.25; scene.add(vB);
+const vA = makeVial({ capColor: 0x3c4a5e, env }); vA.position.copy(A); vA.rotation.y = 0.22; scene.add(vA);
+const vB = makeVial({ capColor: 0x3c4a5e, env }); vB.position.copy(B); vB.rotation.y = 0.48; scene.add(vB);
 
 const tagA = makeTag({ kicker: 'LIST PRICE · USA', price: '$28,218', priceColor: PAL.accent }, 3);
 tagA.position.copy(A).add(new THREE.Vector3(0.98, 0.003, -0.32)); tagA.rotation.z = 0.18; scene.add(tagA);
@@ -158,5 +159,6 @@ window.renderAt = (t) => {
 
   composer.render();
 };
+window.__dbg = { map, S, field, keyA, keyB, backA, backB, rimA, rimB, wash };
 window.sceneReady = true;
 </script></body></html>

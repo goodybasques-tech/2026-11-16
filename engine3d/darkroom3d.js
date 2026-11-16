@@ -56,6 +56,17 @@ export function makeStage(canvasParent) {
   composer.setPixelRatio(1); composer.setSize(W, H);
   composer.addPass(new RenderPass(scene, camera));
   const bokeh = new BokehPass(scene, camera, { focus: 3, aperture: 0.002, maxblur: 0.012 });
+  // BokehPass re-renders the scene with an override depth material. That material cannot draw
+  // instanced fat lines (LineSegments2): every segment collapses onto the origin and the overdraw
+  // makes frames ~50x slower. Lines lie on the desk, so the desk's depth is correct for them anyway.
+  bokeh.excludeFromDepth = [];
+  const bokehRender = bokeh.render.bind(bokeh);
+  bokeh.render = (...args) => {
+    const hidden = bokeh.excludeFromDepth.filter(o => o.visible);
+    hidden.forEach(o => (o.visible = false));
+    bokehRender(...args);
+    hidden.forEach(o => (o.visible = true));
+  };
   composer.addPass(bokeh);
   const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.75, 0.5, 0.92);
   composer.addPass(bloom);
@@ -138,7 +149,7 @@ export function makeVial(opts = {}) {
   });
   const label = new THREE.Mesh(new THREE.CylinderGeometry(R + .004, R + .004, .34, 96, 1, true, -Math.PI * .62, Math.PI * 1.24),
     new THREE.MeshStandardMaterial({ map: labelTex, roughness: .55, side: THREE.FrontSide }));
-  label.rotation.y = Math.PI / 2 + Math.PI * 0; // theta 0 = +z after this
+  // CylinderGeometry theta 0 points at +z, so the label centre faces +z with no extra rotation
   label.position.y = .37; grp.add(label);
   // aluminium crimp + flip-off cap
   const capY = bodyH + sh + neckH - .03;

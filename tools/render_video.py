@@ -27,6 +27,7 @@ def serve(port):
 def open_page(p, url):
     b = p.chromium.launch(executable_path=CHROME, args=ARGS)
     pg = b.new_page(viewport={"width": 1920, "height": 1080})
+    pg.set_default_timeout(600000)   # heavy frames (transmission + DOF + bloom on SwiftShader) can take >30s
     errs = []
     pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.on("console", lambda m: errs.append(m.text) if m.type == "error" else None)
@@ -42,8 +43,12 @@ def render_range(url, times, frames_dir, start_index):
     with sync_playwright() as p:
         b, pg, errs = open_page(p, url)
         for k, t in enumerate(times):
+            f = frames_dir / f"f_{start_index + k:05d}.png"
+            if f.exists() and f.stat().st_size > 0:   # resumable
+                continue
             pg.evaluate(f"renderAt({t:.6f})")
-            pg.screenshot(path=str(frames_dir / f"f_{start_index + k:05d}.png"))
+            pg.screenshot(path=str(f) + ".tmp.png")
+            pathlib.Path(str(f) + ".tmp.png").rename(f)
         b.close()
         return errs
 
@@ -55,6 +60,8 @@ def main():
     ap.add_argument("--fps", type=int, default=30); ap.add_argument("--audio"); ap.add_argument("--lufs", type=float, default=-16)
     ap.add_argument("--stills", default=""); ap.add_argument("--workers", type=int, default=1)
     ap.add_argument("--port", type=int, default=8780)
+    ap.add_argument("--range", default="", help="a:b frame indices to render (resume / split runs)")
+    ap.add_argument("--encode-only", action="store_true"); ap.add_argument("--keep", action="store_true", help="keep existing frames")
     a = ap.parse_args()
     srv = serve(a.port)
     url = f"http://127.0.0.1:{a.port}/{a.scene}"
@@ -72,21 +79,27 @@ def main():
             b.close()
         return
 
-    frames_dir = pathlib.Path("/tmp/frames_" + out.stem); shutil.rmtree(frames_dir, ignore_errors=True); frames_dir.mkdir()
+    frames_dir = pathlib.Path("/tmp/frames_" + out.stem)
+    if not (a.keep or a.range or a.encode_only): shutil.rmtree(frames_dir, ignore_errors=True)
+    frames_dir.mkdir(exist_ok=True)
     n = int(round((a.t1 - a.t0) * a.fps))
     times = [a.t0 + i / a.fps for i in range(n)]
+    lo, hi = (int(x) for x in a.range.split(":")) if a.range else (0, n)
     t_start = time.time()
     chunks = [list(range(i, n, a.workers)) for i in range(a.workers)]
     # contiguous chunks keep each page's state cache warm
-    size = (n + a.workers - 1) // a.workers
+    size = (hi - lo + a.workers - 1) // a.workers
     threads, results = [], []
-    for w in range(a.workers):
-        idx = list(range(w * size, min(n, (w + 1) * size)))
+    for w in range(a.workers if not a.encode_only else 0):
+        idx = list(range(lo + w * size, min(hi, lo + (w + 1) * size)))
         if not idx: continue
         th = threading.Thread(target=lambda idx=idx: results.append(render_range(url, [times[i] for i in idx], frames_dir, idx[0])))
         th.start(); threads.append(th)
     for th in threads: th.join()
-    print(f"rendered {n} frames in {time.time()-t_start:.0f}s")
+    print(f"rendered frames {lo}:{hi} in {time.time()-t_start:.0f}s")
+    missing = [i for i in range(n) if not (frames_dir / f"f_{i:05d}.png").exists()]
+    if missing:
+        print(f"{len(missing)} frames still missing (first {missing[0]}); not encoding"); return
 
     cmd = ["ffmpeg", "-v", "error", "-y", "-framerate", str(a.fps), "-i", str(frames_dir / "f_%05d.png")]
     if a.audio:
